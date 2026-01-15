@@ -71,7 +71,3 @@ MONGODB_URI=your_mongodb_connection_string
 4. Run the server
 npm run dev
 
-
-Server will start at:
-
-http://localhost:8000
