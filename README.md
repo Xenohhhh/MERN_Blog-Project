@@ -61,13 +61,6 @@ cd blog-platform
 2. Install dependencies
 npm install
 
-3. Environment variables
-
-Create a .env file:
-
-PORT=8000
-MONGODB_URI=your_mongodb_connection_string
-
-4. Run the server
+3. Run the server
 npm run dev
 
