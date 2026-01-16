@@ -46,3 +46,6 @@ const registerUser = async(req, res) => {
     }catch(error){
         console.log(`Error in register: ${error.message}`)
     }
+}
+
+export {registerUser}
