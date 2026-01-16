@@ -1,1 +1,1 @@
-export const DB_NAME = "Dbname";
+export const DB_NAME = "dbname";
