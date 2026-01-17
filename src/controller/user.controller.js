@@ -103,7 +103,6 @@ const loginUser = async (req, res) => {
 
         const accessToken =  generateAccessTokens(user)
         //const refreshToken =  generateRefreshTokens(user)
-
        
 
         return res.status(200).json({
