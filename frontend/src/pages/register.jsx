@@ -8,7 +8,7 @@ const Register = () => {
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log({ username, email, password });
 
@@ -17,10 +17,10 @@ const Register = () => {
 
         try{
             const data = {username, email, password};
-            const res = registerUser(data);
+            const res = await registerUser(data);
             console.log("Backend response:", res);
             alert("Registration successful!");
-        }catch(error){
+        }catch(err){
             setError(err.response?.data?.message || "Registration failed");
         }finally{
             setLoading(false);
@@ -61,6 +61,9 @@ const Register = () => {
                 />
             </div>
             <button type="submit" className='btn btn-primary mt-3'>Register</button>
+
+            {error && <p className="text-danger mt-2">{error}</p>}
+
         </form>
     </div>
   )
