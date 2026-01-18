@@ -77,16 +77,18 @@ const loginUser = async (req, res) => {
     // generate access, refresh token
 
     try {
-        const { username, email, password } = req.body
+        const { identifier, password } = req.body
 
-        if (!(password && (username || email))) {
+        if (!(password && (identifier))) {
             return res.status(400)
                 .json({ success: false, message: "Either email or username is required" })
         }
 
-        const user = await User.findOne({
-            $or: [{ username }, { email }]
-        })
+        const isEmail = identifier.includes("@")
+        
+        const user = await User.findOne(
+            isEmail?{email:identifier}:{username: identifier}
+        )
 
         if (!user) {
             return res.status(401)
