@@ -7,6 +7,8 @@ const generateAccessTokens = (user) => {
     return jwt.sign(
         {
             _id: user._id,
+            username: user.username,
+            email: user.email,
             role: user.role,
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -81,13 +83,13 @@ const loginUser = async (req, res) => {
 
         if (!(password && (identifier))) {
             return res.status(400)
-                .json({ success: false, message: "Either email or username is required" })
+                .json({ success: false, message: "All fields are required" })
         }
 
         const isEmail = identifier.includes("@")
-        
+
         const user = await User.findOne(
-            isEmail?{email:identifier}:{username: identifier}
+            isEmail ? { email: identifier } : { username: identifier }
         )
 
         if (!user) {
@@ -103,9 +105,9 @@ const loginUser = async (req, res) => {
                 .json({ success: false, message: "Invalid password." })
         }
 
-        const accessToken =  generateAccessTokens(user)
+        const accessToken = generateAccessTokens(user)
         //const refreshToken =  generateRefreshTokens(user)
-       
+
 
         return res.status(200).json({
             message: "Login successful",
