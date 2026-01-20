@@ -27,7 +27,7 @@ export const createPost = async (req, res) => {
         const draft = await Post.create({
             title,
             content,
-            author: req.user.userId,
+            author: req.user._id,
         })
         return res.status(201).json({
             success: true,
