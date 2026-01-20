@@ -1,4 +1,4 @@
-import { Post } from "../model/post.model";
+import { Post } from "../model/post.model.js";
 
 export const createPost = async (req, res) => {
     // Take title and content as fields
@@ -10,7 +10,7 @@ export const createPost = async (req, res) => {
     try {
         const { title, content } = req.body
 
-        if (!(title || content)) {
+        if (!(title) || (!content)) {
             return res.status(400).json({
                 success: false,
                 message: "Title and content are required"
@@ -24,11 +24,10 @@ export const createPost = async (req, res) => {
             })
         }
 
-
         const draft = await Post.create({
             title,
             content,
-            author: req.user.id,
+            author: req.user.userId,
         })
         return res.status(201).json({
             success: true,
