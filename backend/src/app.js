@@ -10,10 +10,6 @@ import router from "./routes/user.route.js";
 app.use("/api/v1/user", router)
 
 
-
-
-
-
 /*
 app.get('/health', (req, res) => {
     res.status(200).json(

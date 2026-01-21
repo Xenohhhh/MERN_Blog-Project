@@ -53,6 +53,7 @@ const Login = () => {
             <button type="submit" className='btn btn-primary mt-3'>Login</button>
 
             {error && <p className="text-danger mt-2">{error}</p>}
+            {console.log(error)}
         </form>
     </div>
   )

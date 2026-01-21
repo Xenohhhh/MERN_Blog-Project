@@ -40,6 +40,4 @@ export const createPost = async (req, res) => {
             message: "Failed to create draft",
         })
     }
-
-
 }
