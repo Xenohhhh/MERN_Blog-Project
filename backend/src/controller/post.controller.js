@@ -41,3 +41,27 @@ export const createPost = async (req, res) => {
         })
     }
 }
+
+export const getAllDrafts = async (req, res) => {
+    // Get id from req.user._id
+    // Filter post by author and status draft
+
+    try {
+        const userId = req.user._id
+
+        const drafts = await Post.find({
+            author: userId,
+            status: "draft"
+        }).sort({ updatedAt: -1 })
+
+        return res.status(200).json({
+            success: true,
+            drafts
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch drafts",
+        })
+    }
+}

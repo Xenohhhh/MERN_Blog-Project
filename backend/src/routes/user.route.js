@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { registerUser, loginUser } from "../controller/user.controller.js";
 import { verifyJWT } from "../middleware/auth.middleware.js";
-import { createPost } from "../controller/post.controller.js";
+import { createPost, getAllDrafts } from "../controller/post.controller.js";
 
 
 const router = Router();
@@ -18,6 +18,7 @@ router.get("/profile", verifyJWT, (req, res) => {
     })
 })
 router.route("/draft").post(verifyJWT, createPost)
+router.route("/mydrafts").get(verifyJWT, getAllDrafts)
 
 
 
