@@ -177,3 +177,58 @@ export const getSinglePost = async (req, res) => {
     }
 
 }
+
+export const editPost = async (req, res) => {
+    try {
+        const postId = req.params.id
+        const userId = req.user._id
+
+        const { title, content } = req.body
+
+
+        if (!mongoose.Types.ObjectId.isValid(postId)) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            })
+        }
+
+        const post = await Post.findById(postId)
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found"
+            })
+        }
+
+        if (!post.author.equals(userId)) {
+            return res.status(403).json({
+                success: false,
+                message: "Not authorized to publish this post",
+            })
+        }
+        if (post.status !== "draft") {
+            return res.status(400).json({
+                success: false,
+                message: "Only draft posts can be published",
+            })
+        }
+
+        if (title !== undefined) post.title = title
+        if (content !== undefined) post.content = content
+
+        await post.save()
+
+        return res.status(200).json({
+            success: true,
+            "post": post,
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Failed to edit post",
+        })
+    }
+}
