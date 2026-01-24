@@ -67,6 +67,13 @@ export const getAllDrafts = async (req, res) => {
 }
 
 export const publishPost = async (req, res) => {
+    // Take postid, userid
+    // Search for postid
+    // validation for post, author, status
+    // change the post status to published
+    // save the post
+
+
     try {
         const postId = req.params.id
         const userId = req.user._id
@@ -80,7 +87,7 @@ export const publishPost = async (req, res) => {
             })
         }
 
-        if (post.author.toString() !== userId) {
+        if (!post.author.equals(userId)) {
             return res.status(403).json({
                 success: false,
                 message: "Not authorized to publish this post",
@@ -94,7 +101,7 @@ export const publishPost = async (req, res) => {
             })
         }
 
-        post.status = "publish"
+        post.status = "published"
         await post.save()
 
         return res.status(200).json({
@@ -102,6 +109,7 @@ export const publishPost = async (req, res) => {
             message: "Post published successfully",
         })
     } catch (error) {
+        console.error("PUBLISH ERROR:", error)
         return res.status(500).json({
             success: false,
             message: "Failed to publish post",
