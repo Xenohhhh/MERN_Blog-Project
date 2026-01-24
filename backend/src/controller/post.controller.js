@@ -118,20 +118,54 @@ export const publishPost = async (req, res) => {
 }
 
 export const getPublishedPosts = async (req, res) => {
-    try{
-        const post = await Post.find({status: "published"}).sort({createdAt: -1})
+    try {
+        const post = await Post.find({ status: "published" }).sort({ createdAt: -1 })
 
-        
+
         console.log(post)
 
         return res.status(200).json({
             success: true,
             post
         })
-    }catch(error){
+    } catch (error) {
         return res.status(500).json({
             success: false,
             message: "Failed to fetch posts.",
         })
     }
+}
+
+export const getSinglePost = async (req, res) => {
+    try {
+        const postId = req.params.id
+        const post = await Post.findbyId(postId)
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            })
+        }
+
+        if (post.status !== "published") {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found"
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            post
+        })
+
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch the post.",
+        })
+    }
+
 }
