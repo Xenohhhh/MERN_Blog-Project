@@ -116,3 +116,22 @@ export const publishPost = async (req, res) => {
         })
     }
 }
+
+export const getPublishedPosts = async (req, res) => {
+    try{
+        const post = await Post.find({status: "published"}).sort({createdAt: -1})
+
+        
+        console.log(post)
+
+        return res.status(200).json({
+            success: true,
+            post
+        })
+    }catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch posts.",
+        })
+    }
+}
