@@ -120,10 +120,7 @@ export const publishPost = async (req, res) => {
 
 export const getPublishedPosts = async (req, res) => {
     try {
-        const post = await Post.find({ status: "published" }).sort({ createdAt: -1 })
-
-
-        console.log(post)
+        const post = await Post.find({ status: "published" }).sort({ updatedAt: -1 })
 
         return res.status(200).json({
             success: true,
@@ -229,6 +226,58 @@ export const editPost = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Failed to edit post",
+        })
+    }
+}
+
+export const deletePost = async (req, res) => {
+    try {
+        const postId = req.params.id
+        const userId = req.user._id
+
+        if (!mongoose.Types.ObjectId.isValid(postId)) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            })
+        }
+
+        const post = await Post.findById(postId)
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found"
+            })
+        }
+
+        if (!post.author.equals(userId)) {
+            return res.status(403).json({
+                success: false,
+                message: "Not authorized to delete this post",
+            })
+        }
+
+        if (post.status !== "draft") {
+            return res.status(400).json({
+                success: false,
+                message: "Only draft posts can be deleted",
+            })
+        }
+
+        await post.deleteOne()
+
+        return res.status(200).json(
+            {
+                "success": true,
+                "message": "Draft deleted successfully"
+            }
+        )
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Failed to delete the post",
         })
     }
 }
