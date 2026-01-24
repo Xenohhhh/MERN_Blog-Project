@@ -1,4 +1,5 @@
 import { Post } from "../model/post.model.js";
+import mongoose from "mongoose";
 
 export const createPost = async (req, res) => {
     // Take title and content as fields
@@ -126,7 +127,7 @@ export const getPublishedPosts = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            post
+            "posts": post
         })
     } catch (error) {
         return res.status(500).json({
@@ -139,7 +140,15 @@ export const getPublishedPosts = async (req, res) => {
 export const getSinglePost = async (req, res) => {
     try {
         const postId = req.params.id
-        const post = await Post.findbyId(postId)
+
+        if (!mongoose.Types.ObjectId.isValid(postId)) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            })
+        }
+
+        const post = await Post.findById(postId)
 
         if (!post) {
             return res.status(404).json({
@@ -157,11 +166,10 @@ export const getSinglePost = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            post
+            "post": post
         })
 
     } catch (error) {
-        console.error(error)
         return res.status(500).json({
             success: false,
             message: "Failed to fetch the post.",
