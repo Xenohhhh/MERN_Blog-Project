@@ -17,8 +17,6 @@ router.get("/profile", verifyJWT, (req, res) => {
         user: req.user
     })
 })
-router.route("/draft").post(verifyJWT, createPost)
-router.route("/mydrafts").get(verifyJWT, getAllDrafts)
 
 
 

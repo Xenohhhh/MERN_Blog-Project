@@ -65,3 +65,46 @@ export const getAllDrafts = async (req, res) => {
         })
     }
 }
+
+export const publishPost = async (req, res) => {
+    try {
+        const postId = req.params.id
+        const userId = req.user._id
+
+        const post = await Post.findById(postId)
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            })
+        }
+
+        if (post.author.toString() !== userId) {
+            return res.status(403).json({
+                success: false,
+                message: "Not authorized to publish this post",
+            })
+        }
+
+        if (post.status !== "draft") {
+            return res.status(400).json({
+                success: false,
+                message: "Only draft posts can be published",
+            })
+        }
+
+        post.status = "publish"
+        await post.save()
+
+        return res.status(200).json({
+            success: true,
+            message: "Post published successfully",
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Failed to publish post",
+        })
+    }
+}
