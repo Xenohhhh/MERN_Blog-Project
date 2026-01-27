@@ -281,3 +281,17 @@ export const deletePost = async (req, res) => {
         })
     }
 }
+
+export const getSingleDraft = async (req, res) => {
+  const post = await Post.findOne({
+    _id: req.params.id,
+    author: req.user._id,
+    status: "draft"
+  })
+
+  if (!post) {
+    return res.status(404).json({ success: false, message: "Draft not found" })
+  }
+
+  res.json({ success: true, post })
+}

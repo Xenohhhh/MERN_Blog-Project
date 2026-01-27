@@ -11,11 +11,11 @@ const EditDraft = () => {
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState("")
 
-  
+
   React.useEffect(() => {
     const fetchDraft = async () => {
       try {
-        const res = await api.get(`/post/${id}`)
+        const res = await api.get(`/post/draft/${id}`)
         setTitle(res.data.post.title)
         setContent(res.data.post.content)
       } catch (err) {
