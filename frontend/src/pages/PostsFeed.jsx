@@ -9,7 +9,6 @@ const PostsFeed = () => {
     const fetchPosts = async () => {
       try {
         const res = await api.get("/post")
-        console.log("API RESPONSE:", res.data)
         setPosts(Array.isArray(res.data.posts) ? res.data.posts : [])
       } catch (err) {
         console.error(err)
