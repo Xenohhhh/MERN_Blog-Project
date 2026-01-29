@@ -120,23 +120,32 @@ export const publishPost = async (req, res) => {
 
 export const getPublishedPosts = async (req, res) => {
     try {
-        const { search } = req.query
+        const { search, page = 1, limit = 6 } = req.query
+
         const filter = {
             status: "published"
         }
 
-        if (search) {
+        if (search && search.trim() !== "") {
             filter.title = {
                 $regex: search,
                 $options: "i"
             }
         }
+        const skip = (Number(page) - 1) * Number(limit)
 
-        const posts = await Post.find(filter).sort({ updatedAt: -1 })
+        const totalPosts = await Post.countDocuments(filter)
+
+        const posts = await Post.find(filter).sort({ updatedAt: -1 }).skip(skip)
+            .limit(Number(limit))
 
         return res.status(200).json({
             success: true,
-            "posts": posts
+            "posts": posts,
+            page: Number(page),
+            totalPages: Math.ceil(totalPosts / Number(limit)),
+            totalPosts,
+
         })
     } catch (error) {
         return res.status(500).json({
