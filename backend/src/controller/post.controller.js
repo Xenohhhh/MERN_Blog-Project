@@ -120,11 +120,23 @@ export const publishPost = async (req, res) => {
 
 export const getPublishedPosts = async (req, res) => {
     try {
-        const post = await Post.find({ status: "published" }).sort({ updatedAt: -1 })
+        const { search } = req.query
+        const filter = {
+            status: "published"
+        }
+
+        if (search) {
+            filter.title = {
+                $regex: search,
+                $options: "i"
+            }
+        }
+
+        const posts = await Post.find(filter).sort({ updatedAt: -1 })
 
         return res.status(200).json({
             success: true,
-            "posts": post
+            "posts": posts
         })
     } catch (error) {
         return res.status(500).json({
@@ -283,15 +295,15 @@ export const deletePost = async (req, res) => {
 }
 
 export const getSingleDraft = async (req, res) => {
-  const post = await Post.findOne({
-    _id: req.params.id,
-    author: req.user._id,
-    status: "draft"
-  })
+    const post = await Post.findOne({
+        _id: req.params.id,
+        author: req.user._id,
+        status: "draft"
+    })
 
-  if (!post) {
-    return res.status(404).json({ success: false, message: "Draft not found" })
-  }
+    if (!post) {
+        return res.status(404).json({ success: false, message: "Draft not found" })
+    }
 
-  res.json({ success: true, post })
+    res.json({ success: true, post })
 }

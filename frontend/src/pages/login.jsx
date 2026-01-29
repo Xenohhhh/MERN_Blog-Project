@@ -1,11 +1,15 @@
 import React from 'react'
 import { loginUser } from '../services/auth.service'
+import { useNavigate } from 'react-router-dom'
+
+
 
 const Login = () => {
     const [identifier, setIdentifier] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState("")
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -19,6 +23,7 @@ const Login = () => {
             localStorage.setItem("token", res.accessToken)
 
             alert(`Welcome back`)
+            navigate("/")
         }catch(err){
             setError(err.response?.data?.message || "Registration failed");
         }finally{
