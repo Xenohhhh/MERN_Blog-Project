@@ -1,5 +1,7 @@
 import React from "react"
 import api from "../api/axios"
+import { useNavigate } from "react-router-dom"
+
 
 const PostsFeed = () => {
   const [posts, setPosts] = React.useState([])
@@ -24,6 +26,8 @@ const PostsFeed = () => {
 
     fetchPosts()
   }, [page, search])
+  const navigate = useNavigate()
+
 
   if (loading) return <p>Loading posts...</p>
 
@@ -34,26 +38,29 @@ const PostsFeed = () => {
       <input
         type="text"
         placeholder="Search any blog"
-        value = {search}
-        onChange={(e)=> {
+        value={search}
+        onChange={(e) => {
           setSearch(e.target.value)
-          setPage(1)}
+          setPage(1)
+        }
         }
       />
 
       {posts.length === 0 && <p>No posts yet</p>}
 
       {posts.map((post) => (
-        <div key={post._id} className="post-card">
+        <div key={post._id} className="post-card" onClick={() => {navigate(`/post/${post._id}`)}}>
           <h2>{post.title}</h2>
           <p>{post.content}</p>
         </div>
       ))}
 
       {page < totalPages && (
-        <button onClick={() => setPage(p => p + 1)}>
-          Load more
-        </button>
+        <div className="load-more-wrapper">
+          <button onClick={() => setPage((p) => p + 1)}>
+            Load more
+          </button>
+        </div>
       )}
     </div>
   )

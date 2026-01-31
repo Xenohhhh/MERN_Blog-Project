@@ -1,0 +1,303 @@
+/* =====================
+   RESET + BASE
+===================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(180deg, #f8fafc, #eef2f7);
+    color: #1f2937;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Soft background blobs */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: -1;
+}
+
+body::before {
+    top: -120px;
+    left: -120px;
+    background: rgba(99, 102, 241, 0.25);
+}
+
+body::after {
+    bottom: -140px;
+    right: -140px;
+    background: rgba(37, 99, 235, 0.25);
+}
+
+/* =====================
+   LAYOUT
+===================== */
+.container {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.centered {
+    max-width: 420px;
+    margin: 100px auto;
+    padding: 36px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* =====================
+   HERO SECTION
+===================== */
+.hero {
+    text-align: center;
+    padding: 100px 20px 60px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    color: #4b5563;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+/* =====================
+   HEADINGS
+===================== */
+h1,
+h2,
+h3 {
+    color: #111827;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+/* =====================
+   FORMS
+===================== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 6px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    transition: all 0.2s ease;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* =====================
+   BUTTONS
+===================== */
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: #fff;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+/* Centered load more button */
+.load-more-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+
+button:hover {
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button.danger {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+}
+
+button.secondary {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =====================
+   POSTS FEED
+===================== */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.post-card {
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.06),
+        0 2px 6px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.post-card p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    margin-top: 8px;
+}
+
+.post-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow:
+        0 18px 40px rgba(37, 99, 235, 0.18),
+        0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================
+   SINGLE POST
+===================== */
+.post-page {
+    max-width: 720px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.post-page h1 {
+    font-size: 2.6rem;
+    margin-bottom: 10px;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+.post-content {
+    font-family: "Georgia", serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* =====================
+   DRAFTS
+===================== */
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+/* =====================
+   SEARCH
+===================== */
+.search-box {
+    max-width: 500px;
+    margin: 0 auto 40px;
+}
+
+.search-box input {
+    font-size: 1rem;
+}
+
+/* =====================
+   STATES
+===================== */
+.loading {
+    text-align: center;
+    color: #6b7280;
+}
+
+.text-danger {
+    text-align: center;
+    color: #dc2626;
+    margin-top: 16px;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .post-page h1 {
+        font-size: 2rem;
+    }
+}
