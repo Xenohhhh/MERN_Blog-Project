@@ -29,7 +29,7 @@ const SinglePost = () => {
   return (
     <div className="container">
       <h1>{post.title}</h1>
-      <p>{post.content}</p>
+      <p className="post-content">{post.content}</p>
     </div>
   )
 }

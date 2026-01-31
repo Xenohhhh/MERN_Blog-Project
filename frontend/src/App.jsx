@@ -1,4 +1,7 @@
 import { Routes, Route } from "react-router-dom"
+import { useState } from "react"
+
+import Navbar from "./components/Navbar"
 import PostsFeed from "./pages/PostsFeed"
 import SinglePost from "./pages/SinglePost"
 import Login from "./pages/login"
@@ -7,9 +10,14 @@ import Profile from "./pages/Profile"
 import Drafts from "./pages/drafts"
 import EditDraft from "./pages/EditDraft"
 import ProtectedRoute from "./components/ProtectedRoutes"
+import CreateDraft from "./pages/CreateDraft"
 
 function App() {
+  const [search, setSearch] = useState("")
   return (
+    <>
+    <Navbar search={search} setSearch={setSearch} />
+
     <Routes>
       <Route path="/" element={<PostsFeed />} />
       <Route path="/post/:id" element={<SinglePost />} />
@@ -28,8 +36,10 @@ function App() {
 
       <Route path="/profile" element={<Profile />} />
       <Route path="/drafts" element={<Drafts />} />
+      <Route path="/drafts/new" element={<CreateDraft />} />
       <Route path="/drafts/:id/edit" element={<EditDraft />} />
     </Routes>
+    </>
   )
 }
 

@@ -50,7 +50,10 @@ const Drafts = () => {
     <div className="container">
       <h1>My Drafts</h1>
 
-      {drafts.length === 0 && <p>No drafts yet</p>}
+      {drafts.length === 0 && (
+        <p>Create your first blog</p>
+        )}
+        
 
       {drafts.map((draft) => (
         <div key={draft._id} className="post-card">
@@ -70,8 +73,13 @@ const Drafts = () => {
               Delete
             </button>
           </div>
+
+          
         </div>
       ))}
+      <button onClick={() => navigate("/drafts/new")}>
+          New Draft
+        </button>
     </div>
   )
 }
