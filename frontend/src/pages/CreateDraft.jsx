@@ -1,5 +1,5 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import api from "../api/axios"
 
 const CreateDraft = () => {
@@ -23,36 +23,50 @@ const CreateDraft = () => {
     }
   }
 
+  // Auto-resize textarea logic (optional but recommended for this UI)
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
+  }
+
   return (
-    <div className="container">
-      <h1>New Draft</h1>
-
-      <p>Title should be at least 3 character long.</p>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Title</label>
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
+    <div className="editor-page">
+      <div className="editor-container">
+        <div className="action-bar">
+            <Link to="/drafts" className="back-link">
+                <span>&larr;</span> Back to drafts
+            </Link>
+            <button 
+                className="btn-publish" 
+                onClick={handleSubmit} 
+                disabled={loading}
+            >
+                {loading ? "Saving..." : "Save Draft"}
+            </button>
         </div>
 
-        <div className="form-group">
-          <label>Content</label>
-          <textarea
-            rows="10"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
-        </div>
+        {/* The Editor Form */}
+        <form onSubmit={handleSubmit} className="editor-form">
+            <input
+              type="text"
+              className="editor-title"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              autoFocus
+            />
 
-        <button disabled={loading}>
-          {loading ? "Saving..." : "Save Draft"}
-        </button>
-      </form>
+            <textarea
+              className="editor-content"
+              placeholder="Tell your story..."
+              value={content}
+              onChange={handleContentChange}
+              required
+            />
+        </form>
+      </div>
     </div>
   )
 }
