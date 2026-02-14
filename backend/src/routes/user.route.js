@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { registerUser, loginUser } from "../controller/user.controller.js";
+import { registerUser, loginUser, avatarUser } from "../controller/user.controller.js";
 import { verifyJWT } from "../middleware/auth.middleware.js";
+import { upload } from "../middleware/multer.middleware.js";
 
 
 
@@ -17,6 +18,7 @@ router.get("/profile", verifyJWT, (req, res) => {
         user: req.user
     })
 })
+router.route("/avatar").patch(verifyJWT, upload.single("avatar"), avatarUser)
 
 
 

@@ -1,4 +1,6 @@
 import { User } from "../model/user.model.js"
+import fs from "fs"
+import cloudinary from "../utils/cloudinary.util.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
@@ -119,4 +121,33 @@ const loginUser = async (req, res) => {
     }
 }
 
-export { registerUser, loginUser }
+const avatarUser = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" })
+        }
+
+        const result = await cloudinary.uploader.upload(req.file.path, { folder: "avatars" })
+
+        fs.unlinkSync(req.file.path)
+
+        const user = await User.findByIdAndUpdate(
+            req.user._id,
+            { avatar: result.secure_url },
+            { new: true }
+        )
+
+        return res.json({
+            success: true,
+            avatar: user.avatar,
+        })
+
+
+    } catch (error) {
+        return res.status(500).json({
+            message: `${error.message}`
+        })
+    }
+}
+
+export { registerUser, loginUser, avatarUser }

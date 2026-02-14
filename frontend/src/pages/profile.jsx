@@ -38,6 +38,13 @@ const Profile = () => {
     return (
         <div className="container">
             <h1>Profile</h1>
+            <div className="profile-image">
+                <img
+                    src={user.avatar}
+                    alt="avatar"
+                    className="avatar"
+                />
+            </div>
 
             <div className="profile-box">
                 <div className="profile-item">
