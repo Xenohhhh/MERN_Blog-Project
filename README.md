@@ -1,66 +1,96 @@
-# Blog Platform (Production-Inspired)
+# 📝 Ink. — Full-Stack Blog Platform (MERN)
 
-A production-inspired full-stack blog platform built with **Node.js, Express, MongoDB, and React**.  
-This project focuses on **clean backend architecture, authentication, role-based access control, and scalable design**, rather than just CRUD functionality.
+Ink. is a full-stack blogging platform built using the **MERN stack**, focused on real-world features like authentication, drafts management, publishing workflow, profile customization, and media uploads.
 
-> ⚠️ This project is actively under development.
+This project was built end-to-end with emphasis on **backend correctness**, **secure APIs**, and a **responsive frontend** that mirrors how production blog platforms work.
 
----
+## 🚀 Features
 
-## 🚀 Project Goals
+### 🔐 Authentication & Authorization
 
-- Build a **realistic backend architecture** suitable for production-like applications
-- Implement **authentication and authorization** with clear separation of concerns
-- Support **role-based access** (reader, author, admin)
-- Enable **draft vs published** blog workflows
-- Keep the system **simple, explainable, and interview-ready**
+* User registration and login
+* JWT-based authentication
+* Protected routes using middleware
+* Logout support
+* Role-aware access control (author-only actions)
 
----
+### 📝 Blog Workflow
 
-## 🧠 Core Features (Planned & In Progress)
+* Create posts as **drafts**
+* Edit and delete drafts
+* Publish drafts to public feed
+* View all published posts
+* View single post by ID
+* Search posts by title
+* Pagination for scalable feeds
 
-### Backend
-- User authentication (register & login)
-- Role-based access control
-- Blog post creation and editing
-- Draft vs published post states
-- Pagination for public blog feed
-- Clean API design with middleware-based permissions
+### 👤 User Profile
+
+* View profile details
+* Upload and update avatar image
+* Avatar storage using **Cloudinary**
+* Display user statistics:
+  * Draft posts count
+  * Published posts count
+
+### 📁 Media Uploads
+
+* Image uploads via **Multer**
+* Cloud storage using **Cloudinary**
+* File size and type validation
+* Automatic cleanup of temporary files
+
+### 🎨 Frontend
+
+* Built with **React + Vite**
+* Axios instance with interceptors
+* Route-based navigation using React Router
+* Protected frontend routes
+* Dark-themed, modern UI
+* Responsive layout
+* Reusable components
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- Public blog feed
-- Authentication pages
-- Author dashboard
-- Blog editor
-- Public profile pages
 
----
-
-## 🏗️ Tech Stack
+* React
+* Vite
+* React Router
+* Axios
+* CSS (custom styling)
 
 ### Backend
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- bcrypt (password hashing)
-- dotenv
 
-### Frontend (Planned)
-- React
-- React Router
-- REST API integration
+* Node.js
+* Express.js
+* MongoDB + Mongoose
+* JSON Web Tokens (JWT)
+* Multer
+* Cloudinary
 
----
+## 🎯 Learning Outcomes
 
-🛠️ Getting Started (Backend)
-1. Clone the repository
-git clone <repo-url>
-cd blog-platform
+This project strengthened my understanding of:
 
-2. Install dependencies
-npm install
+* REST API design
+* JWT authentication flows
+* Secure route handling
+* File uploads & cloud storage
+* Backend-first development
+* Frontend-backend integration
+* Debugging real production-like issues
+* Building scalable CRUD workflows
 
-3. Run the server
-npm run dev
+## 🔮 Future Improvements
 
+* Google OAuth login
+* Likes & comments system
+* Rich text editor for posts
+* Improved mobile responsiveness
+* Admin moderation features
+
+## 👤 Author
+
+**Satvik Sharma**
+Full-Stack Developer (MERN)
