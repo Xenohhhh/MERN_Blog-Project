@@ -9,6 +9,38 @@ const Profile = () => {
 
     const navigate = useNavigate()
 
+    const handleAvatarChange = async (e) => {
+        const file = e.target.files[0]
+        if (!file) return
+
+        const formData = new FormData()
+        formData.append("avatar", file)
+
+        try {
+            const res = await api.patch("/user/avatar", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+
+            setUser((prev) => ({
+                ...prev,
+                avatar: res.data.avatar,
+            }))
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify({
+                    ...user,
+                    avatar: res.data.avatar,
+                })
+            )
+        } catch (err) {
+            alert("Failed to upload avatar")
+        }
+    }
+
+
     React.useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -44,6 +76,18 @@ const Profile = () => {
                     alt="avatar"
                     className="avatar"
                 />
+            </div>
+
+            <div className="avatar-btn">
+                <label className="upload-btn">
+                    Change Avatar
+                    <input
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        onChange={handleAvatarChange}
+                    />
+                </label>
             </div>
 
             <div className="profile-box">
