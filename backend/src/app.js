@@ -4,7 +4,7 @@ import cors from "cors"
 const app = express();
 
 app.use(express.json())
-app.use(cors({origin: "http://localhost:5173"}))
+app.use(cors({origin: "https://mern-blog-project-lhxp.vercel.app"}))
 
 import userRouter from "./routes/user.route.js";
 import postRouter from "./routes/post.route.js"
