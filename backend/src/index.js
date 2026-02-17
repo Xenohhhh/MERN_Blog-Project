@@ -9,10 +9,12 @@ const __dirname = path.dirname(__filename)
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") })
 
+const PORT = process.env.PORT || 8000
+
 connectDB()
 .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(`Server running at ${process.env.PORT}`)
+        app.listen(PORT, () => {
+            console.log(`Server running at ${PORT}`)
         })
     }
 )
