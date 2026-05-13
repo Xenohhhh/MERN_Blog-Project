@@ -3,8 +3,25 @@ import cors from "cors"
 
 const app = express();
 
+const allowedOrigins = (process.env.CORS_ORIGIN || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+
+allowedOrigins.push("http://localhost:5173")
+
+const corsOptions = {
+    origin(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true)
+        }
+
+        return callback(new Error("CORS origin not allowed"))
+    }
+}
+
 app.use(express.json())
-app.use(cors({origin: "https://mern-blog-project-lhxp.vercel.app"}))
+app.use(cors(corsOptions))
 
 import userRouter from "./routes/user.route.js";
 import postRouter from "./routes/post.route.js"

@@ -1,7 +1,15 @@
 import axios from "axios"
 
+const rawBaseUrl = import.meta.env.VITE_API_URL?.trim()
+
+if (!rawBaseUrl) {
+    console.warn(
+        "VITE_API_URL is not set. Using local fallback http://localhost:8000/api/v1."
+    )
+}
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+    baseURL: rawBaseUrl || "http://localhost:8000/api/v1"
 })
 
 
